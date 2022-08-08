@@ -23,7 +23,7 @@ const App: React.FC = () => {
   
   return (
     <React.Fragment>
-      <span>i am {a }</span>
+      <span>i am {a     }</span>
       <button onClick={() => seta(++a)}>i am app</button> 
       <App1 onAction={b} numeric={ c}/>
   </React.Fragment>
