@@ -13,6 +13,10 @@ const App: React.FC = () => {
   const b =  useCallback(() => { 
    seta(++a)
   }, [])
+  
+  function getdata() { 
+    fetch('XXX')
+  }
 
   const c = useMemo(()=>({ a:1}),[])
   // const c = {a:1}
