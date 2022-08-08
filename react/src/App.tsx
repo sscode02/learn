@@ -1,4 +1,4 @@
-import { useState,useEffect,useCallback } from 'react'
+import { useState,useEffect,useCallback,useMemo } from 'react'
 import * as React from 'react';
 
 import './App.css'
@@ -13,19 +13,23 @@ const App: React.FC = () => {
   const b =  useCallback(() => { 
    seta(++a)
   }, [])
+
+  const c = useMemo(()=>({ a:1}),[])
+  // const c = {a:1}
   
   return (
     <React.Fragment>
       <span>i am {a }</span>
       <button onClick={() => seta(++a)}>i am app</button> 
-      <App1 onAction={ b}/>
+      <App1 onAction={b} numeric={ c}/>
   </React.Fragment>
   )
  }
-const App1: React.FC<any> = React.memo( ({ onAction}) => {  //not re-render when onActio not change
+const App1: React.FC<any> = React.memo( ({ onAction,numeric}) => {  //not re-render when onActio not change
   console.log('app1 re-render')
   return (
-  <React.Fragment>
+    <React.Fragment>
+      <span>{  JSON.stringify(numeric)}</span>
       <button onClick={onAction}>i am app1</button>
       <App2 />
   </React.Fragment>
