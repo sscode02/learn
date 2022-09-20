@@ -5,11 +5,12 @@ import "./App.css";
 
 const useList = (param: any) => {
   function getdata(a: any) {
+    console.log("get data");
     return { b: 1 };
   }
   useEffect(() => {
     getdata(param);
-  }, [param]);
+  }, []);
 };
 
 const App: React.FC = () => {
@@ -19,11 +20,11 @@ const App: React.FC = () => {
 
   const testList = useList(param);
 
-  const c = useMemo(() => ({ a: 1 }), []);
+  const c = useMemo(() => ({ a: new Date().getTime() }), []);
 
   return (
     <React.Fragment>
-      <button onClick={() => setParam({ a: 2 })}>search</button>
+      <button onClick={() => setParam({ a: 1 })}>search</button>
       <App1 data={testList} numeric={c} />
     </React.Fragment>
   );
@@ -55,4 +56,53 @@ const App3: React.FC = () => {
   );
 };
 
-export default App;
+const App11 = () => {
+  const [a, seta] = useState(0);
+  return (
+    <div>
+      <span>{a}</span>
+      <button onClick={() => seta(a + 1)}>click</button>
+    </div>
+  );
+};
+
+const App111 = () => {
+  const [temp, setTemp] = React.useState(5);
+
+  const log = () => {
+    setTimeout(() => {
+      console.log("3 秒前 temp = 5，现在 temp =", temp);
+    }, 3000);
+  };
+
+  return (
+    <div
+      onClick={() => {
+        log();
+        setTemp(3);
+        // 3 秒前 temp = 5，现在 temp = 5
+      }}
+    >
+      xyz
+    </div>
+  );
+};
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log(2);
+      setCount(count + 1);
+    }, 1000);
+    return () => {
+      console.log("1111");
+      clearInterval(id);
+    };
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+
+export default Counter;
